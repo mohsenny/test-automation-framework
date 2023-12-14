@@ -35,19 +35,22 @@ The `BasePage` class is the foundation for creating page-specific classes. Exten
 Example:
 
 ```typescript
-import { BasePage } from 'playwright-ts/pages/BasePage';
+import { BasePage } from 'playwright-ts';
 
-export class LoginPage extends BasePage {
-  usernameSelector: string = '#username';
-  passwordSelector: string = '#password';
-  submitButtonSelector: string = '#submit';
+export class SearchPage extends BasePage {
+    searchFieldSelector: string;
 
-  async login(username: string, password: string): Promise<void> {
-    await this.page.fill(this.usernameSelector, username);
-    await this.page.fill(this.passwordSelector, password);
-    await this.page.click(this.submitButtonSelector);
-  }
+    constructor() {
+        super('/search');
+        this.searchFieldSelector = '#searchbox_input';
+    }
+
+    async search(searchKeyword: string): Promise<void> {
+        await this.page.fill(this.searchFieldSelector, searchKeyword);
+        await this.page.keyboard.press('Enter');
+    }
 }
+
 ```
 
 ### Writing Tests
@@ -58,19 +61,20 @@ Example Test:
 
 ```typescript
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../src/pages/LoginPage';
+import { SearchPage } from '../src/pages/SearchPage';
 
-test.describe('Authentication', () => {
-  test('Should log in with correct credentials', async () => {
-    const loginPage = new LoginPage();
-    await loginPage.init();
+test.describe('Search', () => {
+    test('Should search for \'Potato\' and see relevant results', async ({}) => {
+        const searchPage = new SearchPage();
+        await searchPage.init();
 
-    await loginPage.login('username', 'password');
-    // Add assertions to verify successful login
+        await searchPage.navigateToPage();
+        await searchPage.search('Potato');
 
-    await loginPage.close();
-  });
+        await searchPage.close();
+    });
 });
+
 ```
 
 ## Contributing
