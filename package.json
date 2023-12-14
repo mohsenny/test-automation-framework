@@ -1,0 +1,26 @@
+{
+  "name": "playwright-ts",
+  "version": "1.0.16",
+  "description": "",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "index.d.ts",
+    "src/**/*"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "npm run build && npx playwright test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.10.4"
+  },
+  "dependencies": {
+    "@playwright/test": "^1.40.1",
+    "playwright": "^1.40.1"
+  }
+}
