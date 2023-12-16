@@ -22,11 +22,11 @@ Example:
 import { Browser, Page } from 'playwright';
 import { BasePage } from 'playwright-ts';
 
-export class LoginPage extends BasePage {
+export class SearchPage extends BasePage {
     searchFieldSelector: string;
     
     constructor(browser: Browser, page: Page) {
-        super(browser, page, '/login');
+        super(browser, page, '/search');
         this.searchFieldSelector = '#searchbox_input';
     }
     
@@ -35,14 +35,36 @@ export class LoginPage extends BasePage {
         await this.page.keyboard.press('Enter');
     }
 }
-
 ```
 
-### Writing Tests
+### Using PageProvider
 
-Write your tests using Playwright Test in the `tests` directory. Use the page objects you've created for interaction with the web pages.
+`PageProvider` is a utility class designed to simplify the management and usage of multiple page objects in your tests. It centralizes the creation and initialization of page objects, allowing you to access them easily within your test cases.
 
-Example Test:
+To use `PageProvider`, first create and initialize it in your test setup, then use its methods to get instances of your page objects.
+
+Example `PageProvider`:
+
+```typescript
+import { Browser, Page } from 'playwright';
+import { SearchPage } from './SearchPage';
+
+export class PageProvider {
+    private browser: Browser;
+    private page: Page;
+
+    constructor(browser: Browser, page: Page) {
+        this.browser = browser;
+        this.page = page;
+    }
+
+    getSearchPage(): SearchPage {
+        return new SearchPage(this.browser, this.page);
+    }
+}
+```
+
+Example Test Using `PageProvider`:
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -66,6 +88,6 @@ test.describe('Search', () => {
 });
 ```
 
-## Contributing
+### Contributing
 
 Contributions are welcome! If you would like to contribute, please submit a pull request or open an issue for discussion.
