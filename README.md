@@ -56,14 +56,12 @@ test.describe('Search', () => {
     });
 
     test('Should search for \'Potato\' and see relevant results', async () => {
-        const searchPage = await provider.getSearchPage();
+        const searchPage = provider.getSearchPage();
 
         await searchPage.init();
 
         await searchPage.navigateToPage();
         await searchPage.search('Potato');
-
-        await searchPage.close();
     });
 });
 ```
