@@ -2,22 +2,6 @@
 
 This Playwright Test Automation Framework provides a standardized setup for implementing automated tests in multiple projects using Playwright. It offers a structured approach with a Page Object Model (POM) at its core, allowing for easy maintenance and readability of tests.
 
-## Project Structure
-
-```
-├───dist (Compiled TypeScript files)
-│   ├───src
-│   │   ├───config (Playwright configuration files)
-│   │   ├───pages (Base and extended page classes)
-│   │   └───utils (Utility functions)
-├───src
-│   ├───config (Playwright configuration source files)
-│   ├───pages (Source for BasePage and other page classes)
-│   └───utils (Utility functions source)
-├───test-results (Generated test results)
-└───tests (Test case files)
-```
-
 ## Installation
 
 To install the framework in your project, use npm:
@@ -35,19 +19,23 @@ The `BasePage` class is the foundation for creating page-specific classes. Exten
 Example:
 
 ```typescript
-import { BasePage } from 'playwright-ts/pages/BasePage';
+import { Browser, Page } from 'playwright';
+import { BasePage } from 'playwright-ts';
 
 export class LoginPage extends BasePage {
-  usernameSelector: string = '#username';
-  passwordSelector: string = '#password';
-  submitButtonSelector: string = '#submit';
-
-  async login(username: string, password: string): Promise<void> {
-    await this.page.fill(this.usernameSelector, username);
-    await this.page.fill(this.passwordSelector, password);
-    await this.page.click(this.submitButtonSelector);
-  }
+    searchFieldSelector: string;
+    
+    constructor(browser: Browser, page: Page) {
+        super(browser, page, '/login');
+        this.searchFieldSelector = '#searchbox_input';
+    }
+    
+    async search(searchKeyword: string): Promise<void> {
+        await this.page.fill(this.searchFieldSelector, searchKeyword);
+        await this.page.keyboard.press('Enter');
+    }
 }
+
 ```
 
 ### Writing Tests

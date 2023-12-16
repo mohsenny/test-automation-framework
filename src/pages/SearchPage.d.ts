@@ -1,6 +1,7 @@
 import { BasePage } from './BasePage';
-export declare class SearchPage extends BasePage {
+import { Browser, Page } from 'playwright';
+export declare class LoginPage extends BasePage {
     searchFieldSelector: string;
-    constructor();
+    constructor(browser: Browser, page: Page);
     search(searchKeyword: string): Promise<void>;
 }

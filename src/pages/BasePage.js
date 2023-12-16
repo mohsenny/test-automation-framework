@@ -16,7 +16,9 @@ exports.BasePage = void 0;
 const playwright_1 = require("playwright");
 const playwright_config_1 = __importDefault(require("../config/playwright.config"));
 class BasePage {
-    constructor(URL) {
+    constructor(browser, page, URL) {
+        this.browser = browser;
+        this.page = page;
         this.URL = URL;
     }
     init() {

@@ -2,11 +2,13 @@ import { Browser, chromium, Page } from 'playwright';
 import config from '../config/playwright.config';
 
 export class BasePage {
-    browser!: Browser;
-    page!: Page;
-    URL: string;
+    protected browser: Browser;
+    protected page: Page;
+    protected URL: string;
 
-    constructor(URL: string) {
+    constructor(browser: Browser, page: Page, URL: string) {
+        this.browser = browser;
+        this.page = page;
         this.URL = URL;
     }
 
