@@ -46,18 +46,25 @@ Example Test:
 
 ```typescript
 import { test, expect } from '@playwright/test';
-import { LoginPage } from '../src/pages/LoginPage';
+import { PageProvider } from '../src/pages/PageProvider';
 
-test.describe('Authentication', () => {
-  test('Should log in with correct credentials', async () => {
-    const loginPage = new LoginPage();
-    await loginPage.init();
+test.describe('Search', () => {
+    let provider: PageProvider;
 
-    await loginPage.login('username', 'password');
-    // Add assertions to verify successful login
+    test.beforeEach(async ({ browser, page }) => {
+        provider = new PageProvider(browser, page);
+    });
 
-    await loginPage.close();
-  });
+    test('Should search for \'Potato\' and see relevant results', async () => {
+        const searchPage = await provider.getSearchPage();
+
+        await searchPage.init();
+
+        await searchPage.navigateToPage();
+        await searchPage.search('Potato');
+
+        await searchPage.close();
+    });
 });
 ```
 
