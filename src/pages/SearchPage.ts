@@ -1,11 +1,11 @@
 import { BasePage } from './BasePage';
-import { Browser, Page } from 'playwright';
+import { Page } from 'playwright';
 
 export class LoginPage extends BasePage {
     searchFieldSelector: string;
     
-    constructor(browser: Browser, page: Page) {
-        super(browser, page, 'http://example.com/login');
+    constructor(page: Page) {
+        super(page, 'http://example.com/login');
         this.searchFieldSelector = '#searchbox_input';
     }
     

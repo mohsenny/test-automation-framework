@@ -8,34 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BasePage = void 0;
-const playwright_1 = require("playwright");
-const playwright_config_1 = __importDefault(require("../config/playwright.config"));
 class BasePage {
-    constructor(browser, page, URL) {
-        this.browser = browser;
+    constructor(page, URL) {
         this.page = page;
         this.URL = URL;
-    }
-    init() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.browser = yield playwright_1.chromium.launch(playwright_config_1.default);
-            this.page = yield this.browser.newPage();
-            return this.page;
-        });
     }
     navigateToPage() {
         return __awaiter(this, void 0, void 0, function* () {
             yield this.page.goto(this.URL);
-        });
-    }
-    close() {
-        return __awaiter(this, void 0, void 0, function* () {
-            yield this.browser.close();
         });
     }
 }

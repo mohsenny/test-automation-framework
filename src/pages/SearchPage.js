@@ -12,8 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LoginPage = void 0;
 const BasePage_1 = require("./BasePage");
 class LoginPage extends BasePage_1.BasePage {
-    constructor(browser, page) {
-        super(browser, page, 'http://example.com/login');
+    constructor(page) {
+        super(page, 'http://example.com/login');
         this.searchFieldSelector = '#searchbox_input';
     }
     search(searchKeyword) {
