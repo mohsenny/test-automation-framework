@@ -16,17 +16,17 @@ npm install playwright-ts
 
 The `BasePage` class is the foundation for creating page-specific classes. Extend `BasePage` for each page in your application, defining the selectors and methods relevant to that page.
 
-Example:
+#### Example: SearchPage
 
 ```typescript
-import { Browser, Page } from 'playwright';
+import { Page } from 'playwright';
 import { BasePage } from 'playwright-ts';
 
 export class SearchPage extends BasePage {
-    searchFieldSelector: string;
+    private searchFieldSelector: string;
     
-    constructor(browser: Browser, page: Page) {
-        super(browser, page, '/search');
+    constructor(page: Page) {
+        super(page, '/search');
         this.searchFieldSelector = '#searchbox_input';
     }
     
@@ -37,34 +37,56 @@ export class SearchPage extends BasePage {
 }
 ```
 
-### Using PageProvider
-
-`PageProvider` is a utility class designed to simplify the management and usage of multiple page objects in your tests. It centralizes the creation and initialization of page objects, allowing you to access them easily within your test cases.
-
-To use `PageProvider`, first create and initialize it in your test setup, then use its methods to get instances of your page objects.
-
-Example `PageProvider`:
+#### Example: ResultsPage
 
 ```typescript
-import { Browser, Page } from 'playwright';
-import { SearchPage } from './SearchPage';
+import { Page } from 'playwright';
+import { BasePage } from 'playwright-ts';
 
-export class PageProvider {
-    private browser: Browser;
-    private page: Page;
-
-    constructor(browser: Browser, page: Page) {
-        this.browser = browser;
-        this.page = page;
+export class ResultsPage extends BasePage {
+    private resultsSelector: string;
+    
+    constructor(page: Page) {
+        super(page, '/results');
+        this.resultsSelector = '#results';
     }
-
-    getSearchPage(): SearchPage {
-        return new SearchPage(this.browser, this.page);
+    
+    async shouldSeeDuckBar(): Promise<boolean> {
+        return await this.page.isVisible(this.resultsSelector);
     }
 }
 ```
 
-Example Test Using `PageProvider`:
+### Using BasePageProvider
+
+`BasePageProvider` is a utility class designed to simplify the management and usage of multiple page objects in your tests. It centralizes the creation and initialization of page objects, allowing you to access them easily within your test cases.
+
+#### Example `BasePageProvider`:
+
+```typescript
+import { Browser, Page } from 'playwright';
+import { BasePageProvider } from 'playwright-ts';
+import { SearchPage } from './SearchPage';
+import { ResultsPage } from './ResultsPage';
+
+export class PageProvider extends BasePageProvider {
+    constructor(browser: Browser, page: Page) {
+        super(browser, page);
+        this.registerPageObject('search', SearchPage);
+        this.registerPageObject('results', ResultsPage);
+    }
+
+    getSearchPage(): SearchPage {
+        return this.getPageObject<SearchPage>('search');
+    }
+
+    getResultsPage(): ResultsPage {
+        return this.getPageObject<ResultsPage>('results');
+    }
+}
+```
+
+#### Example Test Using `BasePageProvider`:
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -79,11 +101,13 @@ test.describe('Search', () => {
 
     test('Should search for \'Potato\' and see relevant results', async () => {
         const searchPage = provider.getSearchPage();
-
-        await searchPage.init();
+        const resultsPage = provider.getResultsPage();
 
         await searchPage.navigateToPage();
         await searchPage.search('Potato');
+        const resultsVisible = await resultsPage.shouldSeeDuckBar();
+
+        expect(resultsVisible).toBeTruthy();
     });
 });
 ```
