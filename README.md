@@ -51,8 +51,8 @@ export class ResultsPage extends BasePage {
         this.resultsSelector = '#results';
     }
     
-    async shouldSeeDuckBar(): Promise<boolean> {
-        return await this.page.isVisible(this.resultsSelector);
+    getDuckBar(): Locator {
+        return this.page.locator(this.duckBarSelector);
     }
 }
 ```
@@ -105,9 +105,7 @@ test.describe('Search', () => {
 
         await searchPage.navigateToPage();
         await searchPage.search('Potato');
-        const resultsVisible = await resultsPage.shouldSeeDuckBar();
-
-        expect(resultsVisible).toBeTruthy();
+        await expect(ResultsPage.getDuckBar()).toBeVisible()
     });
 });
 ```
