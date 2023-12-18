@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LoginPage = void 0;
+exports.SearchPage = void 0;
 const BasePage_1 = require("./BasePage");
-class LoginPage extends BasePage_1.BasePage {
+class SearchPage extends BasePage_1.BasePage {
     constructor(page) {
-        super(page, 'http://example.com/login');
+        super(page, 'http://www.duckduckgo.com');
         this.searchFieldSelector = '#searchbox_input';
     }
     search(searchKeyword) {
@@ -23,4 +23,4 @@ class LoginPage extends BasePage_1.BasePage {
         });
     }
 }
-exports.LoginPage = LoginPage;
+exports.SearchPage = SearchPage;
