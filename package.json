@@ -1,12 +1,10 @@
 {
   "name": "test-automation-framework",
-  "version": "2.2.1",
+  "version": "2.2.5",
   "description": "",
   "main": "index.js",
   "files": [
-    "index.js",
-    "index.d.ts",
-    "src/**/*"
+    "./dist/**/*"
   ],
   "scripts": {
     "prettify": "npx prettier --write \"**/*.{js,ts}\"",
