@@ -131,14 +131,54 @@ export const config: PackageConfig = {
 };
 ```
 
-**Example GraphQL Test**
+Then, create a testData directory per test suit/scenario, containing the test data in a file within that directory:
+
+```bash
+tests/scneario-one/test-example.ts
+tests/scenario-one/testData/test-example.testdata.ts
+```
+
+`test-example.testdata.ts` would contain and export the needed test data:
+
+```typescript
+export const sampleQueries = {
+    getCountries: `
+        query {
+        countries {
+            code
+            name
+        }
+        }
+    `,
+    getCountry: `
+        query getCountry($code: ID!) {
+        country(code: $code) {
+            code
+            name
+            native
+            capital
+            currency
+        }
+        }
+    `,
+    invalidQuery: `query { invalidField }`,
+};
+  
+export const sampleVariables = {
+    countryVariables: { code: 'BR' },
+};
+  
+```
+
+And at the end this is how your test would look like:
+
 
 ```typescript
 import { expect } from 'chai';
-import { GraphQLClientHelper } from '../../../src/api-graphql/GraphQLClientHelper';
-import { CountriesData, CountryData } from '../../../src/types/graphqlTypes';
+import { GraphQLClientHelper } from 'test-automation-framework';
+import { CountriesData, CountryData } from 'test-automation-framework';
 import { sampleQueries, sampleVariables } from './testData/GraphQLTestExample.testdata';
-import { packageConfig } from '../../../src/api-graphql/config/example.config'; // Point this yo your own local config
+import { graphqlTestsConfig } from './config'; // Point this to your own local config
 
 describe('GraphQL Country API Tests', () => {
   const client = new GraphQLClientHelper(packageConfig.apiUrl);
