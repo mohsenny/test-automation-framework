@@ -134,7 +134,7 @@ export const config: PackageConfig = {
 Then, create a testData directory per test suit/scenario, containing the test data in a file within that directory:
 
 ```bash
-tests/scneario-one/test-example.ts
+tests/scneario-one/test-example.spec.ts
 tests/scenario-one/testData/test-example.testdata.ts
 ```
 
