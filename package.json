@@ -1,6 +1,6 @@
 {
-  "name": "playwright-ts",
-  "version": "1.1.5",
+  "name": "test-automation-framework",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "files": [
@@ -10,17 +10,24 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "npm run build && npx playwright test"
+    "test:e2e": "npm run build && npx playwright test",
+    "test:api-graphql": "mocha --require ts-node/register 'tests/api-graphql/**/*.ts'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "@types/node": "^20.10.4"
+    "@types/chai": "^4.3.11",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "^20.10.5",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@playwright/test": "^1.40.1",
+    "chai": "^4.3.10",
+    "graphql-request": "^6.1.0",
     "playwright": "^1.40.1"
   }
 }

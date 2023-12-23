@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { PageProvider } from '../src/pages/PageProvider';
+import { PageProvider } from '../../src/e2e/pages/PageProvider';
 
 test.describe('Search', () => {
     let provider: PageProvider;
