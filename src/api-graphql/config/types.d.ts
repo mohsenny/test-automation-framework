@@ -1,4 +1,4 @@
-export interface PackageConfig {
+export interface GraphqlTestsConfig {
     apiUrl: string;
     apiKey?: string;
 }

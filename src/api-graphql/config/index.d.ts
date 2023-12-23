@@ -1,3 +1,3 @@
-import { PackageConfig } from './types';
-export declare function initialize(configuration: PackageConfig): void;
-export declare function getConfig(): PackageConfig | undefined;
+import { GraphqlTestsConfig } from './types';
+export declare function initialize(configuration: GraphqlTestsConfig): void;
+export declare function getConfig(): GraphqlTestsConfig | undefined;

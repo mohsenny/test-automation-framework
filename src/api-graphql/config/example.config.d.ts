@@ -1,2 +1,2 @@
-import { PackageConfig } from './types';
-export declare const packageConfig: PackageConfig;
+import { GraphqlTestsConfig } from './types';
+export declare const graphqlTestsConfig: GraphqlTestsConfig;

@@ -2,13 +2,13 @@ import { expect } from 'chai';
 import { GraphQLClientHelper } from '../../../src/api-graphql/GraphQLClientHelper';
 import { CountriesData, CountryData } from '../../../src/types/graphqlTypes';
 import { sampleQueries, sampleVariables } from './testData/GraphQLTestExample.testdata';
-import { packageConfig } from '../../../src/api-graphql/config/example.config'; // Point this yo your own local config
+import { graphqlTestsConfig } from '../../../src/api-graphql/config/example.config'; // Point this yo your own local config
 
 describe('GraphQL Country API Tests', () => {
-  const client = new GraphQLClientHelper(packageConfig.apiUrl);
+  const client = new GraphQLClientHelper(graphqlTestsConfig.apiUrl);
 
   before(() => {
-    client.setHeaders({ Authorization: `Bearer ${packageConfig.apiKey}` });
+    client.setHeaders({ Authorization: `Bearer ${graphqlTestsConfig.apiKey}` });
   });
 
   it('should fetch countries data correctly', async () => {
