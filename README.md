@@ -1,26 +1,32 @@
-# Playwright Test Automation Framework
+# Test Automation Framework
 
-This Playwright Test Automation Framework provides a standardized setup for implementing automated tests in multiple projects using Playwright. It offers a structured approach with a Page Object Model (POM) at its core, allowing for easy maintenance and readability of tests.
+This Test Automation Framework is a comprehensive solution for implementing automated tests across various domains, including end-to-end, API, and performance testing. It's designed to provide a standardized and scalable approach to testing in multiple projects.
 
 ## Installation
 
 To install the framework in your project, use npm:
 
 ```bash
-npm install playwright-ts
+npm install test-automation-framework
 ```
 
 ## Usage
 
-### Extending the BasePage
+The framework is divided into modules, each targeting different testing needs:
 
-The `BasePage` class is the foundation for creating page-specific classes. Extend `BasePage` for each page in your application, defining the selectors and methods relevant to that page.
+### End-to-End Testing with Playwright (`/e2e`)
 
-#### Example: SearchPage
+This module leverages Playwright for end-to-end testing and implements the Page Object Model (POM) for maintainability and readability.
+
+#### Extending the BasePage
+
+`BasePage` is the foundational class for creating page-specific classes. Extend `BasePage` for each page in your application with relevant selectors and methods.
+
+**Example: SearchPage**
 
 ```typescript
 import { Page } from 'playwright';
-import { BasePage } from 'playwright-ts';
+import { BasePage } from 'test-automation-framework';
 
 export class SearchPage extends BasePage {
     private searchFieldSelector: string;
@@ -37,11 +43,11 @@ export class SearchPage extends BasePage {
 }
 ```
 
-#### Example: ResultsPage
+**Example: ResultsPage**
 
 ```typescript
 import { Page } from 'playwright';
-import { BasePage } from 'playwright-ts';
+import { BasePage } from 'test-automation-framework';
 
 export class ResultsPage extends BasePage {
     private resultsSelector: string;
@@ -57,15 +63,15 @@ export class ResultsPage extends BasePage {
 }
 ```
 
-### Using BasePageProvider
+#### Using BasePageProvider
 
-`BasePageProvider` is a utility class designed to simplify the management and usage of multiple page objects in your tests. It centralizes the creation and initialization of page objects, allowing you to access them easily within your test cases.
+`BasePageProvider` manages multiple page objects, allowing easy access within test cases.
 
-#### Example `BasePageProvider`:
+**Example Usage of `BasePageProvider`**
 
 ```typescript
 import { Browser, Page } from 'playwright';
-import { BasePageProvider } from 'playwright-ts';
+import { BasePageProvider } from 'test-automation-framework';
 import { SearchPage } from './SearchPage';
 import { ResultsPage } from './ResultsPage';
 
@@ -86,7 +92,7 @@ export class PageProvider extends BasePageProvider {
 }
 ```
 
-#### Example Test Using `BasePageProvider`:
+**Example Test Using `BasePageProvider`**
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -110,6 +116,44 @@ test.describe('Search', () => {
 });
 ```
 
+### API Testing with GraphQL (`/api-graphql`)
+
+This module provides the necessary tools for testing GraphQL APIs, including a GraphQL client helper for sending requests and handling responses.
+
+**Example GraphQL Test**
+
+```typescript
+// tests/GraphQLTestExample.ts
+import { expect } from 'chai';
+import { GraphQLClientHelper } from '../../src/api-graphql/GraphQLClientHelper';
+import { CountriesData } from '../../src/types/graphqlTypes';
+
+describe('GraphQL API Tests', () => {
+  const client = GraphQLClientHelper.createClient('https://countries.trevorblades.com/');
+
+  it('should fetch countries data correctly', async () => {
+    const query = `
+      query {
+        countries {
+          code
+          name
+        }
+      }
+    `;
+    const data = await client.request<CountriesData>(query);
+    expect(data.countries).to.be.an('array');
+    // Additional assertions as needed
+  });
+
+});
+
+```
+
+### Future Modules
+
+- **REST API Testing (`/api-rest`):** Upcoming module for REST API testing.
+- **Performance Testing (`/performance`):** Planned module for performance testing.
+
 ### Contributing
 
-Contributions are welcome! If you would like to contribute, please submit a pull request or open an issue for discussion.
+Contributions to this framework are welcome! If you'd like to contribute, please submit a pull request or open an issue for discussion.
