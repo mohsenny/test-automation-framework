@@ -1,6 +1,6 @@
-import { GraphqlTestsConfig } from './types';
+import { GraphqlTestsConfig } from "./types";
 
 export const graphqlTestsConfig: GraphqlTestsConfig = {
-  apiUrl: 'https://countries.trevorblades.com/',
-  apiKey: 'your-api-key',
+  apiUrl: "https://countries.trevorblades.com/",
+  apiKey: "your-api-key",
 };

@@ -1,5 +1,5 @@
 export const sampleQueries = {
-    getCountries: `
+  getCountries: `
         query {
         countries {
             code
@@ -7,7 +7,7 @@ export const sampleQueries = {
         }
         }
     `,
-    getCountry: `
+  getCountry: `
         query getCountry($code: ID!) {
         country(code: $code) {
             code
@@ -18,10 +18,9 @@ export const sampleQueries = {
         }
         }
     `,
-    invalidQuery: `query { invalidField }`,
+  invalidQuery: `query { invalidField }`,
 };
-  
+
 export const sampleVariables = {
-    countryVariables: { code: 'BR' },
+  countryVariables: { code: "BR" },
 };
-  

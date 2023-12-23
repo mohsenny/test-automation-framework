@@ -1,10 +1,10 @@
 export type Country = {
-    code: string;
-    name: string;
+  code: string;
+  name: string;
 };
 export type CountryData = {
-    country: Country;
+  country: Country;
 };
 export type CountriesData = {
-    countries: Country[];
+  countries: Country[];
 };
