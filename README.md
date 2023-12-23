@@ -120,32 +120,21 @@ test.describe('Search', () => {
 
 This module provides the necessary tools for testing GraphQL APIs, including a GraphQL client helper for sending requests and handling responses.
 
+First, create a `config.ts` for the API test configurations:
+```typescript
+import { PackageConfig } from 'your-package/config';
+
+export const config: PackageConfig = {
+  apiUrl: 'https://example.com/graphql',
+  apiKey: 'your-api-key',
+};
+``
+`
 **Example GraphQL Test**
 
 ```typescript
-// tests/GraphQLTestExample.ts
-import { expect } from 'chai';
-import { GraphQLClientHelper } from '../../src/api-graphql/GraphQLClientHelper';
-import { CountriesData } from '../../src/types/graphqlTypes';
 
-describe('GraphQL API Tests', () => {
-  const client = GraphQLClientHelper.createClient('https://countries.trevorblades.com/');
 
-  it('should fetch countries data correctly', async () => {
-    const query = `
-      query {
-        countries {
-          code
-          name
-        }
-      }
-    `;
-    const data = await client.request<CountriesData>(query);
-    expect(data.countries).to.be.an('array');
-    // Additional assertions as needed
-  });
-
-});
 
 ```
 

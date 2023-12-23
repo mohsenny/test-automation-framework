@@ -1,4 +1,7 @@
-import { GraphQLClient } from 'graphql-request';
+import { GraphQLClientRequestHeaders } from 'graphql-request/src/types';
 export declare class GraphQLClientHelper {
-    static createClient(endpoint: string): GraphQLClient;
+    private client;
+    constructor(endpoint: string);
+    setHeaders(headers: GraphQLClientRequestHeaders): void;
+    sendQuery<T>(query: string, variables?: any): Promise<T>;
 }
