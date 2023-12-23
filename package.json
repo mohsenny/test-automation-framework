@@ -1,6 +1,6 @@
 {
   "name": "test-automation-framework",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "",
   "main": "index.js",
   "files": [
@@ -12,26 +12,28 @@
     "prettify": "npx prettier --write \"**/*.{js,ts}\"",
     "build": "tsc",
     "test:e2e": "npm run build && npx playwright test",
-    "test:api-graphql": "mocha --require ts-node/register 'tests/api-graphql/**/*.ts'"
+    "test:api-graphql": "mocha --require ts-node/register 'example/tests/api-graphql/example.spec/*.ts'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@types/chai": "^4.3.11",
-    "@types/mocha": "^10.0.6",
-    "@types/node": "^20.10.5",
-    "ajv": "^8.12.0",
-    "mocha": "^10.2.0",
+    "@types/chai": "4.3.11",
+    "@types/mocha": "10.0.6",
+    "@types/node": "20.10.5",
     "prettier": "^3.1.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@playwright/test": "^1.40.1",
     "chai": "^4.3.10",
     "graphql-request": "^6.1.0",
-    "playwright": "^1.40.1",
     "winston": "^3.11.0"
+  },
+  "peerDependencies": {
+    "@playwright/test": "^1.40.1",
+    "ajv": "^8.12.0",
+    "mocha": "^10.2.0",
+    "playwright": "^1.40.1"
   }
 }

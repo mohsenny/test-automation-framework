@@ -23,9 +23,8 @@ export const countryResponseSchema = {
       type: "object",
       properties: {
         name: { type: "string" },
-        // Add other expected properties of a country here...
       },
-      required: ["name"], // Include all required properties
+      required: ["name"],
     },
   },
   required: ["country"],
