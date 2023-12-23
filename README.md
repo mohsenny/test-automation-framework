@@ -138,7 +138,7 @@ tests/scneario-one/test-example.spec.ts
 tests/scenario-one/testData/test-example.testdata.ts
 ```
 
-`test-example.testdata.ts` would contain and export the needed test data:
+`test-example.testdata.ts` would contain and export the needed test data for your tests:
 
 ```typescript
 export const sampleQueries = {
@@ -170,50 +170,78 @@ export const sampleVariables = {
   
 ```
 
-And at the end this is how your test would look like:
+You would also need a `types` directory that contains both the types needs by your tests, as well as the schema to compare and assert the API responses against.
+As a result, the structure of your tests would look like below:
+
+```text
+│   config.ts
+│
+├───example.spec
+│   │   GraphQLCountryTest.spec.ts
+│   │
+│   └───testData
+│           GraphQLTestExample.testdata.ts
+│
+└───types
+        graphqlTypes.ts
+        schemas.ts
+```
+
+Finally, end this is how your test would look like:
 
 
 ```typescript
 import { expect } from 'chai';
 import { GraphQLClientHelper } from 'test-automation-framework';
-import { CountriesData, CountryData } from 'test-automation-framework';
 import { sampleQueries, sampleVariables } from './testData/GraphQLTestExample.testdata';
-import { graphqlTestsConfig } from './config'; // Point this to your own local config
+import { graphqlTestsConfig } from '../config';
+import { CountriesData, CountryData } from '../types/graphqlTypes';
+import {
+    countriesResponseSchema,
+    countryResponseSchema,
+  } from '../types/schemas';
 
 describe('GraphQL Country API Tests', () => {
-  const client = new GraphQLClientHelper(packageConfig.apiUrl);
+  const client = new GraphQLClientHelper(graphqlTestsConfig.apiUrl);
 
   before(() => {
-    client.setHeaders({ Authorization: `Bearer ${packageConfig.apiKey}` });
+    client.setHeaders({ Authorization: `Bearer ${graphqlTestsConfig.apiKey}` });
   });
 
-  it('should fetch countries data correctly', async () => {
-    const data = await client.sendQuery<CountriesData>(sampleQueries.getCountries);
-    expect(data.countries).to.be.an('array');
+  it("should fetch countries data correctly", async () => {
+    const data = await client.sendQuery<CountriesData>(
+      sampleQueries.getCountries,
+      undefined,
+      countriesResponseSchema,
+    );
+    expect(data.countries).to.be.an("array");
     expect(data.countries.length).to.be.greaterThan(0);
   });
 
-  it('should fetch a specific country', async () => {
-    const data: CountryData = await client.sendQuery(
+  it("should fetch a specific country", async () => {
+    const data = await client.sendQuery<CountryData>(
       sampleQueries.getCountry,
-      sampleVariables.countryVariables
+      sampleVariables.countryVariables,
+      countryResponseSchema,
     );
-    expect(data.country).to.be.an('object');
-    expect(data.country.name).to.equal('Brazil');
+    expect(data.country).to.be.an("object");
+    expect(data.country.name).to.equal("Brazil");
   });
 
-  it('should handle errors gracefully', async () => {
+  it("should handle errors gracefully", async () => {
     try {
-      await client.sendQuery(sampleQueries.invalidQuery);
-      throw new Error('Expected an error but none was thrown');
+      await client.sendQuery(sampleQueries.invalidQuery, undefined, null); // No schema needed for invalid queries
+      throw new Error("Expected an error but none was thrown");
     } catch (error) {
       expect(error).to.be.an.instanceOf(Error);
-      expect((error as Error).message).to.include('GraphQL request failed');
+      expect((error as Error).message).to.include("Cannot query field");
     }
   });
 });
 
+
 ```
+The structure of your tests would look like below:
 
 ### Future Modules
 
