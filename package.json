@@ -1,6 +1,6 @@
 {
   "name": "test-automation-framework",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "",
   "main": "index.js",
   "files": [
@@ -28,6 +28,7 @@
     "@playwright/test": "^1.40.1",
     "chai": "^4.3.10",
     "graphql-request": "^6.1.0",
-    "playwright": "^1.40.1"
+    "playwright": "^1.40.1",
+    "winston": "^3.11.0"
   }
 }

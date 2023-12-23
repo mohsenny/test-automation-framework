@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GraphQLClientHelper = void 0;
 const graphql_request_1 = require("graphql-request");
+const logger_1 = require("../utils/logger");
 class GraphQLClientHelper {
     constructor(endpoint) {
         this.client = new graphql_request_1.GraphQLClient(endpoint);
@@ -22,14 +23,27 @@ class GraphQLClientHelper {
     // Send a GraphQL query or mutation
     sendQuery(query, variables) {
         return __awaiter(this, void 0, void 0, function* () {
+            const start = performance.now();
             try {
-                return yield this.client.request(query, variables); // Specify the expected response type
+                const response = yield this.client.request(query, variables);
+                const end = performance.now();
+                const duration = end - start;
+                // Log request details and performance metrics
+                logger_1.logger.info({
+                    message: 'GraphQL Request',
+                    query,
+                    variables,
+                    duration,
+                });
+                return response;
             }
             catch (error) {
                 if (error instanceof graphql_request_1.ClientError) {
-                    // Custom error handling: log details and rethrow
-                    console.error("GraphQL Error:", error.response.errors);
-                    console.error("Query:", error.request.query);
+                    // Custom error handling & log errors
+                    logger_1.logger.error({
+                        message: 'GraphQL Error',
+                        error: error.toString(),
+                    });
                     throw new Error("GraphQL request failed");
                 }
                 throw error;
