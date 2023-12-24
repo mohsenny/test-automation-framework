@@ -4,7 +4,7 @@ import { CountryData, CountriesData } from "../types/graphqlTypes";
 import {
   sampleQueries,
   sampleVariables,
-} from "./testData/GraphQLTestExample.testdata";
+} from "./testData/countries.testdata";
 import { graphqlTestsConfig } from "../example.config";
 import {
   countriesResponseSchema,
