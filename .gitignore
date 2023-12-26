@@ -1,4 +1,4 @@
 node_modules/**/*
 test_results/**/*
-dist/**/*
+# dist/**/*
 graphql.log
