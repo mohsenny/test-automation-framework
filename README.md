@@ -243,10 +243,116 @@ describe('GraphQL Country API Tests', () => {
 ```
 The structure of your tests would look like below:
 
+
+Certainly! Here's how you can incorporate code snippets into your README for the performance testing section:
+
+---
+
+### Performance Testing with k6 (`/performance`)
+
+Our framework integrates performance testing using k6, a powerful tool for load testing. Due to k6's limitations in importing npm modules, this module relies on direct imports of raw files from this repository in the consumer's k6 scripts.
+
+#### Configuring Performance Tests
+
+A `performance/config.js` file is provided to manage environment variables essential for running the tests. This file contains common mandatory environment variables applicable across different projects. Additional project-specific environment variables can be added on the consumer side as needed.
+
+#### Writing Performance Tests
+
+All performance tests should be written in JavaScript, as k6 does not smoothly support TypeScript. This ensures compatibility with k6's runtime environment and its import mechanism.
+
+#### How to Use
+
+Import the necessary scripts directly from the raw GitHub content in your k6 test scripts. This allows you to leverage the latest updates and functionalities of the performance testing module without npm module dependencies.
+
+#### Configuration (`/config`)
+
+Define load stages in `load.ts`:
+
+```javascript
+// config/load.ts
+export const loads = {
+  // Define your load configurations here
+  performance: {
+    jsonPlaceholder: {
+      getPosts: [{ target: 5, duration: "20s" }],
+      // Additional scenarios
+    },
+  },
+  // Other environments like 'sanity'
+};
+
+// Function to retrieve the appropriate load configuration
+export function get(env) { /* ... */ }
+```
+
+Customize environment-specific settings in `customConfig.ts`:
+
+```javascript
+// config/customConfig.ts
+export const customOptions = {
+  // Define your custom options here
+  host: getEnvVariable("MY_HOSTNAME"),
+  // ...
+};
+```
+
+#### Endpoints (`/requests`)
+
+Define API endpoints:
+
+```javascript
+// requests/endpoints.ts
+export const list = {
+  jsonPlaceholderPosts: {
+    getPosts: `${customOptions.host}/posts`,
+    // Additional endpoints
+  },
+};
+```
+
+Implement request functions:
+
+```javascript
+// requests/jsonPlaceholder.ts
+export const getPosts = () => {
+  // Function to fetch posts
+};
+
+export const createPost = (payload) => {
+  // Function to create a post
+};
+```
+
+#### Scenarios (`/scenarios`)
+
+Write test scenarios using the defined requests and configurations:
+
+```javascript
+// scenarios/example.spec/jsonPlaceholder.ts
+import { sleep, group } from "k6";
+import * as jsonPlaceholderRequests from "../../requests/jsonPlaceholder.js";
+
+export default function () {
+  group("Get all Posts", () => {
+    jsonPlaceholderRequests.getPosts();
+    sleep(1);
+  });
+
+  // Additional test groups
+};
+```
+
+#### Setup Scripts (`/setup`)
+
+Use `ci.sh`, `local.ps1`, and `local.sh` for setting up test environments and execution.
+
+#### Types (`/types`)
+
+Define types for requests and responses in TypeScript for better code structure and understanding.
+
 ### Future Modules
 
 - **REST API Testing (`/api-rest`):** Upcoming module for REST API testing.
-- **Performance Testing (`/performance`):** Planned module for performance testing.
 
 ### Contributing
 
