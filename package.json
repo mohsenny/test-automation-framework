@@ -1,6 +1,6 @@
 {
   "name": "test-automation-framework",
-  "version": "2.2.10",
+  "version": "3.0.2",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -13,8 +13,8 @@
     "test:e2e": "npm run build && npx playwright test",
     "test:api-graphql": "mocha --require ts-node/register 'example/tests/api-graphql/**/*.spec.ts'",
     "test:performance:cloud": "k6 cloud",
-    "test:performance:local": "k6 run",
-    "test:performance:ci": "k6 run scenarios/*.js --out json=report.json"
+    "test:performance:local": "k6 run --out json=test_results.json",
+    "test:performance:ci": "k6 run --out json=report.json scenarios/*.js"
   },
   "keywords": [],
   "author": "",
