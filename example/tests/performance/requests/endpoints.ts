@@ -1,4 +1,4 @@
-import { customOptions } from "../config/customConfig";
+import { customOptions } from "../config/customConfig.js";
 
 export const list = {
   postmanEcho: {

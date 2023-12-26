@@ -1,5 +1,5 @@
-import { defaultHeader, handleResponseError, parseJsonResponse } from "../../../../src/utils/http";
-import { list as endpoints } from "./endpoints";
+import { defaultHeader, handleResponseError, parseJsonResponse } from "../../../../src/utils/http.js";
+import { list as endpoints } from "./endpoints.js";
 import http from "k6/http";
 // import { logger } from '../logger.js';
 

@@ -1,7 +1,7 @@
 import {
   getEnvVariable,
   defaultOptions,
-} from "../../../../src/perfomrance/config/configure"; // Import from the package
+} from "../../../../src/perfomrance/config/configure.js"; // Import from the package
 
 export const customOptions = {
   ...defaultOptions,

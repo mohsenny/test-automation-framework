@@ -2,10 +2,10 @@ import { sleep, group } from "k6";
 
 // Configuration
 import { customOptions } from "../../config/customConfig.js";
-import { get, Loads } from "../../config/load";  // Import Loads type for casting
+import { get, Loads } from "../../config/load.js";  // Import Loads type for casting
 
 // Requests
-import * as jsonPlaceholderRequests from "../../requests/jsonPlaceholder";
+import * as jsonPlaceholderRequests from "../../requests/jsonPlaceholder.js";
 
 // Ensure runType is a valid key of Loads
 const runType = customOptions.runType as keyof Loads;
