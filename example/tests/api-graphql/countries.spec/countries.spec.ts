@@ -1,10 +1,7 @@
 import { expect } from "chai";
 import { GraphQLClientHelper } from "../../../../src/api-graphql/GraphQLClientHelper";
 import { CountryData, CountriesData } from "../types/graphqlTypes";
-import {
-  sampleQueries,
-  sampleVariables,
-} from "./testData/countries.testdata";
+import { sampleQueries, sampleVariables } from "./testData/countries.testdata";
 import { graphqlTestsConfig } from "../example.config";
 import {
   countriesResponseSchema,

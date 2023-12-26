@@ -11,13 +11,17 @@
     "prettify": "npx prettier --write \"**/*.{js,ts}\"",
     "build": "tsc",
     "test:e2e": "npm run build && npx playwright test",
-    "test:api-graphql": "mocha --require ts-node/register 'example/tests/api-graphql/**/*.spec.ts'"
+    "test:api-graphql": "mocha --require ts-node/register 'example/tests/api-graphql/**/*.spec.ts'",
+    "test:performance:cloud": "k6 cloud",
+    "test:performance:local": "k6 run",
+    "test:performance:ci": "k6 run scenarios/*.js --out json=report.json"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/chai": "4.3.11",
+    "@types/k6": "^0.46.0",
     "@types/mocha": "10.0.6",
     "@types/node": "20.10.5",
     "prettier": "^3.1.1",
@@ -25,6 +29,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "chai": "^4.3.10",
     "graphql-request": "^6.1.0",
     "winston": "^3.11.0"
