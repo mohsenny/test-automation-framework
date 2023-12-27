@@ -11,5 +11,5 @@
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*", "example/tests/**/*", "index.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["performance/**/*"] // Performance tests are being impoty as https modules and from GitHub's raw content, due to k6 limitations
 }

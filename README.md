@@ -174,7 +174,7 @@ You would also need a `types` directory that contains both the types needs by yo
 As a result, the structure of your tests would look like below:
 
 ```text
-│   config.ts
+├───config.ts
 │
 ├───example.spec
 │   │   GraphQLCountryTest.spec.ts
@@ -254,7 +254,7 @@ Our framework integrates performance testing using k6, a powerful tool for load 
 
 #### Configuring Performance Tests
 
-A `performance/config.js` file is provided to manage environment variables essential for running the tests. This file contains common mandatory environment variables applicable across different projects. Additional project-specific environment variables can be added on the consumer side as needed.
+A `config/configure.js` file is provided to manage environment variables essential for running the tests. This file contains common mandatory environment variables applicable across different projects. Additional project-specific environment variables can be added on the consumer side as needed.
 
 #### Writing Performance Tests
 
