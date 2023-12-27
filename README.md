@@ -148,8 +148,7 @@ export const sampleQueries = {
             code
             name
         }
-        }
-    `,
+    }`,
     getCountry: `
         query getCountry($code: ID!) {
         country(code: $code) {
@@ -159,8 +158,7 @@ export const sampleQueries = {
             capital
             currency
         }
-        }
-    `,
+    }`,
     invalidQuery: `query { invalidField }`,
 };
   
