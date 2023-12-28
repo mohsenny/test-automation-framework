@@ -239,12 +239,6 @@ describe('GraphQL Country API Tests', () => {
 
 
 ```
-The structure of your tests would look like below:
-
-
-Certainly! Here's how you can incorporate code snippets into your README for the performance testing section:
-
----
 
 ### Performance Testing with k6 (`/performance`)
 
