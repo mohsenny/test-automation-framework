@@ -148,8 +148,7 @@ export const sampleQueries = {
             code
             name
         }
-        }
-    `,
+    }`,
     getCountry: `
         query getCountry($code: ID!) {
         country(code: $code) {
@@ -159,8 +158,7 @@ export const sampleQueries = {
             capital
             currency
         }
-        }
-    `,
+    }`,
     invalidQuery: `query { invalidField }`,
 };
   
@@ -238,9 +236,7 @@ describe('GraphQL Country API Tests', () => {
     }
   });
 });
-\
-
-Adding the documentation for the new REST API module is a great way to complete your README and provide comprehensive guidance for users of your framework. Here's how you can adapt the existing GraphQL test documentation for the REST API module:
+```
 
 ### REST API Testing (`/api-rest`)
 
@@ -318,7 +314,6 @@ The structure for REST API tests is organized as follows:
 │       │   requestTypes.ts
 │       │   responseTypes.ts
 ```
-
 
 ### Performance Testing with k6 (`/performance`)
 
