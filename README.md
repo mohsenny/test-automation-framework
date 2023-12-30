@@ -14,7 +14,9 @@ npm install test-automation-framework
 
 The framework is divided into modules, each targeting different testing needs:
 
-### End-to-End Testing with Playwright (`/e2e`)
+---
+
+### Module 1: End-to-End Testing with Playwright (`/e2e`)
 
 This module leverages Playwright for end-to-end testing and implements the Page Object Model (POM) for maintainability and readability.
 
@@ -116,7 +118,7 @@ test.describe('Search', () => {
 });
 ```
 
-### API Testing with GraphQL (`/api-graphql`)
+### Module 2: API Testing with GraphQL (`/api/graphql`)
 
 This module provides the necessary tools for testing GraphQL APIs, including a GraphQL client helper for sending requests and handling responses.
 
@@ -125,10 +127,12 @@ First, create a `config.ts` for the API test configurations:
 ```typescript
 import { PackageConfig } from 'your-package/config';
 
-export const config: PackageConfig = {
-  apiUrl: 'https://example.com/graphql',
-  apiKey: 'your-api-key',
+export const apiTestsConfig: ApiTestsConfig = {
+    graphqlApiUrl: "https://countries.trevorblades.com/",
+    // restApiUrl: "another URL for rest API testing?",
+    // apiKey: "your-api-key",
 };
+
 ```
 
 Then, create a testData directory per test suit/scenario, containing the test data in a file within that directory:
@@ -148,7 +152,8 @@ export const sampleQueries = {
             code
             name
         }
-    }`,
+        }
+    `,
     getCountry: `
         query getCountry($code: ID!) {
         country(code: $code) {
@@ -158,7 +163,8 @@ export const sampleQueries = {
             capital
             currency
         }
-    }`,
+        }
+    `,
     invalidQuery: `query { invalidField }`,
 };
   
@@ -238,7 +244,7 @@ describe('GraphQL Country API Tests', () => {
 });
 ```
 
-### REST API Testing (`/api-rest`)
+### Modules 3: REST API Testing (`/api/rest`)
 
 This module provides tools and setups for testing REST APIs using JSONPlaceholder as an example. It includes a REST API client helper for sending requests and handling responses.
 
@@ -250,8 +256,9 @@ Create an `example.config.ts` file in the `api/config` directory for REST API te
 import { ApiTestsConfig } from "../../../../src/api/config/types";
 
 export const apiTestsConfig: ApiTestsConfig = {
-    restApiUrl: "https://jsonplaceholder.typicode.com",
-    // Add other configurations if needed
+    restApiUrl: "https://countries.trevorblades.com/",
+    // graphqlApiUrl: "another URL for graphql API testing?",
+    // apiKey: "your-api-key",
 };
 ```
 
@@ -305,19 +312,35 @@ The structure for REST API tests is organized as follows:
 │   │   │
 │   ├───endpoints
 │   │   │   endpoints.ts
-│   │   │
+│   │   
 │   ├───rest
 │   │   └───posts.spec
 │   │       │   posts.spec.ts
-│   │       │
+│   │       
 │   └───types
 │       │   requestTypes.ts
 │       │   responseTypes.ts
 ```
 
-### Performance Testing with k6 (`/performance`)
+
+### Modules 4: Performance Testing with k6 (`/performance`)
 
 Our framework integrates performance testing using k6, a powerful tool for load testing. Due to k6's limitations in importing npm modules, this module relies on direct imports of raw files from this repository in the consumer's k6 scripts.
+
+#### IMPORTANT DISCLAIMER: K6 Limitations
+In the realm of performance testing with k6, there are specific limitations that we need to acknowledge and work around. Firstly, k6 is designed to execute JavaScript (.js) files exclusively. This inherent design choice means that TypeScript files are not directly supported. As a consequence of this limitation, our performance testing scripts are written directly in JavaScript rather than TypeScript. This approach allows us to leverage the full capabilities of k6 without the complexities introduced by a transpilation step from TypeScript to JavaScript.
+
+Furthermore, k6 intentionally restricts the import of Node.js modules. This design decision is primarily to prevent complications with the internal memory usage of the Virtual Users (VUs) that k6 generates during tests. Such restrictions ensure that the performance tests are lean and more closely simulate real-world user interaction scenarios. Due to this limitation, any necessary modules or libraries that are not natively supported by k6 must be imported via HTTP(S) from external sources, such as GitHub's raw content. This method of importing ensures that the necessary functionalities are accessible without the need for npm publishing of performance modules, which in our case would be redundant and inefficient.
+
+For instance, in our consumer-side performance tests (located at tests/performance/requests/jsonPlaceholder.js), we import modules like defaultHeader, handleResponseError, and parseJsonResponse directly from the hosted JavaScript files on GitHub:
+
+```javascript
+import { defaultHeader, handleResponseError, parseJsonResponse } from 'https://raw.githubusercontent.com/mohsenny/test-automation-framework/main/dist/src/perfomrance/index.js';
+
+export const getPosts = () => {
+    // Test implementation
+};
+```
 
 #### Configuring Performance Tests
 
