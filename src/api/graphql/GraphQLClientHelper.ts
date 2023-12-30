@@ -1,7 +1,7 @@
 import { GraphQLClient, ClientError } from "graphql-request";
 import { GraphQLClientRequestHeaders } from "graphql-request/src/types";
-import { logger } from "../utils/logger";
-import { validateResponse } from "../utils/validator";
+import { logger } from "../common/logger";
+import { validateResponse } from "../common/validator";
 
 export class GraphQLClientHelper {
   private client: GraphQLClient;

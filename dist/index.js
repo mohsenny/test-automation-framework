@@ -8,8 +8,8 @@ Object.defineProperty(exports, "BasePage", { enumerable: true, get: function () 
 var BasePageProvider_1 = require("./src/e2e/pages/BasePageProvider");
 Object.defineProperty(exports, "BasePageProvider", { enumerable: true, get: function () { return BasePageProvider_1.BasePageProvider; } });
 // A GraphQL client helper for GraphQL API testse
-var GraphQLClientHelper_1 = require("./src/api-graphql/GraphQLClientHelper");
+var GraphQLClientHelper_1 = require("./src/api/graphql/GraphQLClientHelper");
 Object.defineProperty(exports, "GraphQLClientHelper", { enumerable: true, get: function () { return GraphQLClientHelper_1.GraphQLClientHelper; } });
 // Universal logger
-var logger_1 = require("./src/utils/logger");
+var logger_1 = require("./src/api/common/logger");
 Object.defineProperty(exports, "logger", { enumerable: true, get: function () { return logger_1.logger; } });

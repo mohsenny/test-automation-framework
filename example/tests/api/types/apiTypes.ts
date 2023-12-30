@@ -29,3 +29,10 @@ export const countryResponseSchema = {
   },
   required: ["country"],
 };
+
+export interface PostType {
+  userId: number;
+  id: number;
+  title: string;
+  body: string;
+}
