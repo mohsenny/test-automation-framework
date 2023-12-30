@@ -2,14 +2,14 @@ import { expect } from "chai";
 import { GraphQLClientHelper } from "../../../../../src/api/graphql/GraphQLClientHelper";
 import { CountryData, CountriesData } from "../../types/graphqlTypes";
 import { sampleQueries, sampleVariables } from "./testData/countries.testdata";
-import { graphqlTestsConfig } from "../example.config";
+import { apiTestsConfig } from "../../config/example.config";
 import {
   countriesResponseSchema,
   countryResponseSchema,
 } from "../../types/apiTypes";
 
 describe("GraphQL Country API Tests", () => {  
-  const graphqlApiUrl = graphqlTestsConfig.graphqlApiUrl;
+  const graphqlApiUrl = apiTestsConfig.graphqlApiUrl;
   if (!graphqlApiUrl) {
     throw new Error("GraphQL API URL is not defined in the configuration.");
   }
@@ -17,7 +17,7 @@ describe("GraphQL Country API Tests", () => {
 
   before(() => {
     client.setHeaders({
-      Authorization: `Bearer ${graphqlTestsConfig.apiKey}`,
+      Authorization: `Bearer ${apiTestsConfig.apiKey}`,
     });
   });
 

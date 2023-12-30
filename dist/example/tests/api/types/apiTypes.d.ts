@@ -34,7 +34,7 @@ export declare const countryResponseSchema: {
     };
     required: string[];
 };
-export interface PostType {
+export interface Post {
     userId: number;
     id: number;
     title: string;
