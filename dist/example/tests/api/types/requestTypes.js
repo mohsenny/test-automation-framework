@@ -1,5 +1,8 @@
-export const sampleQueries = {
-  getCountries: `
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sampleVariables = exports.sampleQueries = void 0;
+exports.sampleQueries = {
+    getCountries: `
           query {
           countries {
               code
@@ -7,7 +10,7 @@ export const sampleQueries = {
           }
           }
       `,
-  getCountry: `
+    getCountry: `
           query getCountry($code: ID!) {
           country(code: $code) {
               code
@@ -18,9 +21,8 @@ export const sampleQueries = {
           }
           }
       `,
-  invalidQuery: `query { invalidField }`,
+    invalidQuery: `query { invalidField }`,
 };
-
-export const sampleVariables = {
-  countryVariables: { code: "BR" },
+exports.sampleVariables = {
+    countryVariables: { code: "BR" },
 };

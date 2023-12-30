@@ -17,7 +17,6 @@ export class GraphQLClientHelper {
 
   // Send a GraphQL query or mutation, and validates the response against the schema
   async sendQuery<T>(query: string, variables?: any, schema?: any): Promise<T> {
-    const response = await this.client.request<T>(query, variables);
     const start = performance.now();
     try {
       const response = await this.client.request<T>(query, variables);

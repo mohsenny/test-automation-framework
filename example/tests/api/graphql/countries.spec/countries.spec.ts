@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import { GraphQLClientHelper } from "../../../../../src/api/graphql/GraphQLClientHelper";
-import { CountryData, CountriesData } from "../../types/graphqlTypes";
-import { sampleQueries, sampleVariables } from "./testData/countries.testdata";
+import { CountryData, CountriesData } from "../../types/requestTypes";
+import { sampleQueries, sampleVariables } from "../../types/requestTypes";
 import { apiTestsConfig } from "../../config/example.config";
 import {
   countriesResponseSchema,
   countryResponseSchema,
-} from "../../types/apiTypes";
+} from "../../types/responseTypes";
 
 describe("GraphQL Country API Tests", () => {  
   const graphqlApiUrl = apiTestsConfig.graphqlApiUrl;
