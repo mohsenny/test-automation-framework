@@ -236,8 +236,83 @@ describe('GraphQL Country API Tests', () => {
     }
   });
 });
+```
 
+### REST API Testing (`/api-rest`)
 
+This module provides tools and setups for testing REST APIs using JSONPlaceholder as an example. It includes a REST API client helper for sending requests and handling responses.
+
+#### Configuration
+
+Create an `example.config.ts` file in the `api/config` directory for REST API test configurations:
+
+```typescript
+import { ApiTestsConfig } from "../../../../src/api/config/types";
+
+export const apiTestsConfig: ApiTestsConfig = {
+    restApiUrl: "https://jsonplaceholder.typicode.com",
+    // Add other configurations if needed
+};
+```
+
+#### Defining Endpoints
+
+Define your API endpoints in the `api/endpoints` directory:
+
+```typescript
+// example/tests/api/endpoints/endpoints.ts
+export const postEndpoints = {
+    getPosts: '/posts',
+    getPost: '/posts/1', // Endpoint to fetch a specific post
+    invalidEndpoint: '/invalidEndpoint', // Example of an invalid endpoint
+};
+```
+
+#### Writing Tests
+
+Write your REST API tests in the `api/rest` directory. Here's an example of how to structure and write a REST API test:
+
+```typescript
+// example/tests/api/rest/posts.spec.ts
+import { expect } from 'chai';
+import { RestApiClientHelper } from 'test-automation-framework';
+import { postEndpoints } from '../endpoints/endpoints';
+import { apiTestsConfig } from '../config';
+import { Post, postsResponseSchema } from '../types/requestTypes';
+import { postResponseSchema } from '../types/responseTypes';
+
+describe("REST API Posts Tests", () => {
+    const client = new RestApiClientHelper(apiTestsConfig.restApiUrl);
+
+    it("should fetch posts correctly", async () => {
+        const posts: Post[] = await client.sendRequest('get', postEndpoints.getPosts, undefined, postsResponseSchema);
+        expect(posts).to.be.an('array');
+        expect(posts.length).to.be.greaterThan(0);
+    });
+
+    // Additional test cases...
+});
+```
+
+### Directory Structure for REST API Tests
+
+The structure for REST API tests is organized as follows:
+
+```text
+├───api
+│   ├───config
+│   │   │   example.config.ts
+│   │   │
+│   ├───endpoints
+│   │   │   endpoints.ts
+│   │   │
+│   ├───rest
+│   │   └───posts.spec
+│   │       │   posts.spec.ts
+│   │       │
+│   └───types
+│       │   requestTypes.ts
+│       │   responseTypes.ts
 ```
 
 ### Performance Testing with k6 (`/performance`)
