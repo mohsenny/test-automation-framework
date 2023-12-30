@@ -2,7 +2,7 @@
 
 This Test Automation Framework is a comprehensive solution for implementing automated tests across various domains, including end-to-end, API, and performance testing. It's designed to provide a standardized and scalable approach to testing in multiple projects.
 
-## Installation
+### Installation
 
 To install the framework in your project, use npm:
 
@@ -10,17 +10,17 @@ To install the framework in your project, use npm:
 npm install test-automation-framework
 ```
 
-## Usage
+### Usage
 
 The framework is divided into modules, each targeting different testing needs:
 
 ---
 
-### Module 1: End-to-End Testing with Playwright (`/e2e`)
+## Module 1: End-to-End Testing with Playwright (`/e2e`)
 
 This module leverages Playwright for end-to-end testing and implements the Page Object Model (POM) for maintainability and readability.
 
-#### Extending the BasePage
+### Extending the BasePage
 
 `BasePage` is the foundational class for creating page-specific classes. Extend `BasePage` for each page in your application with relevant selectors and methods.
 
@@ -65,7 +65,7 @@ export class ResultsPage extends BasePage {
 }
 ```
 
-#### Using BasePageProvider
+### Using BasePageProvider
 
 `BasePageProvider` manages multiple page objects, allowing easy access within test cases.
 
@@ -118,7 +118,7 @@ test.describe('Search', () => {
 });
 ```
 
-### Module 2: API Testing with GraphQL (`/api/graphql`)
+## Module 2: API Testing with GraphQL (`/api/graphql`)
 
 This module provides the necessary tools for testing GraphQL APIs, including a GraphQL client helper for sending requests and handling responses.
 
@@ -244,11 +244,11 @@ describe('GraphQL Country API Tests', () => {
 });
 ```
 
-### Modules 3: REST API Testing (`/api/rest`)
+## Modules 3: REST API Testing (`/api/rest`)
 
 This module provides tools and setups for testing REST APIs using JSONPlaceholder as an example. It includes a REST API client helper for sending requests and handling responses.
 
-#### Configuration
+### Configuration
 
 Create an `example.config.ts` file in the `api/config` directory for REST API test configurations:
 
@@ -262,7 +262,7 @@ export const apiTestsConfig: ApiTestsConfig = {
 };
 ```
 
-#### Defining Endpoints
+### Defining Endpoints
 
 Define your API endpoints in the `api/endpoints` directory:
 
@@ -275,7 +275,7 @@ export const postEndpoints = {
 };
 ```
 
-#### Writing Tests
+### Writing Tests
 
 Write your REST API tests in the `api/rest` directory. Here's an example of how to structure and write a REST API test:
 
@@ -323,11 +323,11 @@ The structure for REST API tests is organized as follows:
 ```
 
 
-### Modules 4: Performance Testing with k6 (`/performance`)
+## Modules 4: Performance Testing with k6 (`/performance`)
 
 Our framework integrates performance testing using k6, a powerful tool for load testing. Due to k6's limitations in importing npm modules, this module relies on direct imports of raw files from this repository in the consumer's k6 scripts.
 
-#### IMPORTANT DISCLAIMER: K6 Limitations
+### IMPORTANT DISCLAIMER: K6 Limitations
 In the realm of performance testing with k6, there are specific limitations that we need to acknowledge and work around. Firstly, k6 is designed to execute JavaScript (.js) files exclusively. This inherent design choice means that TypeScript files are not directly supported. As a consequence of this limitation, our performance testing scripts are written directly in JavaScript rather than TypeScript. This approach allows us to leverage the full capabilities of k6 without the complexities introduced by a transpilation step from TypeScript to JavaScript.
 
 Furthermore, k6 intentionally restricts the import of Node.js modules. This design decision is primarily to prevent complications with the internal memory usage of the Virtual Users (VUs) that k6 generates during tests. Such restrictions ensure that the performance tests are lean and more closely simulate real-world user interaction scenarios. Due to this limitation, any necessary modules or libraries that are not natively supported by k6 must be imported via HTTP(S) from external sources, such as GitHub's raw content. This method of importing ensures that the necessary functionalities are accessible without the need for npm publishing of performance modules, which in our case would be redundant and inefficient.
@@ -342,19 +342,19 @@ export const getPosts = () => {
 };
 ```
 
-#### Configuring Performance Tests
+### Configuring Performance Tests
 
 A `config/configure.js` file is provided to manage environment variables essential for running the tests. This file contains common mandatory environment variables applicable across different projects. Additional project-specific environment variables can be added on the consumer side as needed.
 
-#### Writing Performance Tests
+### Writing Performance Tests
 
 All performance tests should be written in JavaScript, as k6 does not smoothly support TypeScript. This ensures compatibility with k6's runtime environment and its import mechanism.
 
-#### How to Use
+### How to Use
 
 Import the necessary scripts directly from the raw GitHub content in your k6 test scripts. This allows you to leverage the latest updates and functionalities of the performance testing module without npm module dependencies.
 
-#### Configuration (`/config`)
+### Configuration (`/config`)
 
 Define load stages in `load.ts`:
 
@@ -386,7 +386,7 @@ export const customOptions = {
 };
 ```
 
-#### Endpoints (`/requests`)
+### Endpoints (`/requests`)
 
 Define API endpoints:
 
@@ -413,7 +413,7 @@ export const createPost = (payload) => {
 };
 ```
 
-#### Scenarios (`/scenarios`)
+### Scenarios (`/scenarios`)
 
 Write test scenarios using the defined requests and configurations:
 
@@ -432,17 +432,13 @@ export default function () {
 };
 ```
 
-#### Setup Scripts (`/setup`)
+### Setup Scripts (`/setup`)
 
 Use `ci.sh`, `local.ps1`, and `local.sh` for setting up test environments and execution.
 
-#### Types (`/types`)
+### Types (`/types`)
 
 Define types for requests and responses in TypeScript for better code structure and understanding.
-
-### Future Modules
-
-- **REST API Testing (`/api-rest`):** Upcoming module for REST API testing.
 
 ### Contributing
 
