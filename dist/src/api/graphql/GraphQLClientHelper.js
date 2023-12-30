@@ -24,7 +24,6 @@ class GraphQLClientHelper {
     // Send a GraphQL query or mutation, and validates the response against the schema
     sendQuery(query, variables, schema) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield this.client.request(query, variables);
             const start = performance.now();
             try {
                 const response = yield this.client.request(query, variables);
